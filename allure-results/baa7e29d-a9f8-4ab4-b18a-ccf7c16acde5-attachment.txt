@@ -1,0 +1,5 @@
+{
+  "error": "no such element",
+  "message": "no such element: Unable to locate element: {\"method\":\"xpath\",\"selector\":\"//span[normalize-space()=\"Mega Menu\"]\"}\n  (Session info: chrome=118.0.5993.89)",
+  "stacktrace": "\tGetHandleVerifier [0x00007FF624B38EF2+54786]\n\t(No symbol) [0x00007FF624AA5612]\n\t(No symbol) [0x00007FF62495A64B]\n\t(No symbol) [0x00007FF62499B79C]\n\t(No symbol) [0x00007FF62499B91C]\n\t(No symbol) [0x00007FF6249D6D87]\n\t(No symbol) [0x00007FF6249BBEAF]\n\t(No symbol) [0x00007FF6249D4D02]\n\t(No symbol) [0x00007FF6249BBC43]\n\t(No symbol) [0x00007FF624990941]\n\t(No symbol) [0x00007FF624991B84]\n\tGetHandleVerifier [0x00007FF624E87F52+3524194]\n\tGetHandleVerifier [0x00007FF624EDD800+3874576]\n\tGetHandleVerifier [0x00007FF624ED5D7F+3843215]\n\tGetHandleVerifier [0x00007FF624BD5086+694166]\n\t(No symbol) [0x00007FF624AB0A88]\n\t(No symbol) [0x00007FF624AACA94]\n\t(No symbol) [0x00007FF624AACBC2]\n\t(No symbol) [0x00007FF624A9CC83]\n\tBaseThreadInitThunk [0x00007FFA82F87344+20]\n\tRtlUserThreadStart [0x00007FFA850826B1+33]\n"
+}
