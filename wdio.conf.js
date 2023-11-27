@@ -23,7 +23,7 @@ export const config = {
     //
     specs: [
         // './test/specs/**/*.js'
-        './test/specs/lambdatest.demo.js'
+        './test/specs/wait.until.js'
     ],
     // Patterns to exclude.
     exclude: [

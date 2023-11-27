@@ -8,6 +8,6 @@ describe('Element interactions', () => {
         // Element hover
         await $('//span[normalize-space()="Mega Menu"]').moveTo()
         await $('a[title="Headphones"]').click()
-        await browser.pause(3000)
+        browser.pause(3000)
     })
 })
