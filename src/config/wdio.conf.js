@@ -51,9 +51,6 @@ export const config = {
     //
     capabilities: [{
         browserName: 'chrome',
-
-        // See: https://github.com/webdriverio/webdriverio/issues/12251
-        browserVersion: '122.0.6261.39'
     }],
 
     //
@@ -200,8 +197,9 @@ export const config = {
      * Hook that gets executed before the suite starts
      * @param {object} suite suite details
      */
-    // beforeSuite: function (suite) {
-    // },
+    beforeSuite: function (suite) {
+        browser.maximizeWindow()
+    },
     /**
      * Function to be executed before a test (in Mocha/Jasmine) starts.
      */
@@ -230,8 +228,9 @@ export const config = {
      * @param {object}  result.retries   information about spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
     afterTest: async function(test, context, { error, result, duration, passed, retries }) {
+        // Take screenshot when test fails
         if (!passed) {
-            await browser.takeScreenshot();
+            await browser.saveScreenshot('./screenshots/failed.png');
         }
     },
 
