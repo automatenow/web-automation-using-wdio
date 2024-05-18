@@ -21,7 +21,7 @@ export const config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        '../test/**/register.spec.js'
+        '../test/parameterization/register.spec.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -50,8 +50,21 @@ export const config = {
     // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [{
-        browserName: 'chrome',
+        browserName: "chrome",
+        browserVersion: "latest",
+	    "LT:Options": {
+		    username: process.env.LT_USERNAME,
+		    accessKey: process.env.LT_ACCESS_KEY,
+            platformName: "Windows 10",
+		    project: "wdio2",
+		    w3c: true,
+		    plugin: "node_js-webdriverio"
+        }
     }],
+
+    path: "/wd/hub",
+    hostname: "hub.lambdatest.com",
+    port: 80,
 
     //
     // ===================
