@@ -22,7 +22,6 @@ export const config = {
     //
     specs:
     [
-        // '../test/hooks/login.spec.js'
         '../test/frames/frames.spec.js'
     ],
     // Patterns to exclude.
