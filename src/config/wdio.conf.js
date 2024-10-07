@@ -22,7 +22,7 @@ export const config = {
     //
     specs:
     [
-        '../test/frames/frames.spec.js'
+        '../test/windows/windows.spec.js'
     ],
     // Patterns to exclude.
     exclude: [
