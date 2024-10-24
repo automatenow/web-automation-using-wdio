@@ -2,7 +2,7 @@ describe('Window Popup Modal Demo Test', () => {
     it('clicks verifies "like us on Facebook" buttton functionality', async () => {
         await browser.url('https://www.lambdatest.com/selenium-playground/window-popup-modal-demo');
 
-        // Find the 'Follow us On Facebook' button and click it
+        // Find the 'Like us On Facebook' button and click it
         const facebookButton = await $('a[title="Follow @Lambdatesting on Facebook"]');
         await facebookButton.click();
 
