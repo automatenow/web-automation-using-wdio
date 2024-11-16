@@ -1,3 +1,23 @@
+import { config  as dotenvConf} from 'dotenv';
+dotenvConf();  // Read .env file
+
+// Used to save screenshots 
+import { join } from 'path'; 
+import { promises as fs } from 'fs'; 
+
+// Used for Report Portal reporter
+import { Reporter } from '@reportportal/agent-js-webdriverio';
+
+// Report Portal reporter config
+const report_portal_conf = {
+        apiKey: process.env.REPORTPORTAL_API_KEY,
+        endpoint: 'http://localhost:8090/api/v1',  // Check the port # (default is 8080)!
+        project: 'superadmin_personal',
+        launch: 'My Launch',
+        description: 'Running some tests',
+        attachPicturesToLogs: true
+};
+
 export const config = {
     //
     // ====================
@@ -22,7 +42,8 @@ export const config = {
     //
     specs:
     [
-        '../test/windows/windows.spec.js'
+        // '../test/**/*.spec.js'
+        '../test/locators/*.spec.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -137,7 +158,48 @@ export const config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: [['allure', {outputDir: 'allure-results'}]],
+    reporters: [
+        // Dot Rerpoter -> npm install @wdio/dot-reporter --save-dev
+        // 'dot',
+        
+        // Spec Reporter -> npm install @wdio/spec-reporter --save-dev
+        // 'spec',
+
+        // Concise Reporter -> npm install @wdio/concise-reporter --save-dev
+        // 'concise',
+        
+        // TestRail Reporter -> npm i --save-dev @wdio/testrail-reporter
+        // ['testrail', { 
+        //     projectId: 4, 
+        //     suiteId: 1, 
+        //     domain: 'automatenow.testrail.io', 
+        //     username: process.env.TESTRAIL_USERNAME, 
+        //     apiToken: process.env.TESTRAIL_API_TOKEN, 
+        //     runName: 'My Test Run', 
+        //     oneReport: true, 
+        //     includeAll: true 
+        //     } 
+        // ],
+
+        // Allure Reporter -> npm install @wdio/allure-reporter --save-dev
+        // ['allure', {
+        //     outputDir: 'allure-results'
+        // }],
+
+        //JSON Reporter -> npm install @wdio/json-reporter --save-dev
+        // ['json', { stdout: true }],  // Print results to terminal or
+        // ['json', {outputDir: './results'}],  // Output results to a file
+
+        // HTML Reporter -> npm install wdio-html-nice-reporter@8.1.6 --save-dev
+        // ['html-nice', {
+        //     outputDir: './results',
+        //     filename: 'html-report.html',
+        //     reportTitle: 'My Cool HTML Report'
+        // }],
+
+        // Reportportal Reporter -> npm install --save-dev @reportportal/agent-js-webdriverio
+        // [Reporter, report_portal_conf]
+    ],
 
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
@@ -244,10 +306,25 @@ export const config = {
     afterTest: async function(test, context, { error, result, duration, passed, retries }) {
         // Takes a screenshot when a test fails
         if(!passed) {
-            await browser.saveScreenshot('./screenshots/failed.png')
+            try {
+                const screenshotName = `${test.title.replace(/\s+/g, '_')}.png`; // Replaces whitespaces with '_' in test name
+                const screenshotDir = join(process.cwd(), 'screenshots');
+
+                // Ensure the directory exists
+                await fs.mkdir(screenshotDir, { recursive: true });
+
+                // Construct the full path for the screenshot
+                const screenshotPath = join(screenshotDir, screenshotName);
+                
+                // Save the screenshot
+                await browser.saveScreenshot(screenshotPath);
+                
+                console.log(`Screenshot saved for the failed test: ${screenshotName}`);
+            } catch (err) {
+                console.error('Failed to save screenshot:', err);
+            }
         }
     },
-
 
     /**
      * Hook that gets executed after the suite has ended
