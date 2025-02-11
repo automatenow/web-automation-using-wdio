@@ -1,5 +1,5 @@
 ## About this project
-This WebdriverIO project uses the [Lambdatest e-commerce playground](https://ecommerce-playground.lambdatest.io/).
+This WebdriverIO project was created by [Marco A. Cruz](http://www.linkedin.com/in/marco-a-cruz) and it uses the [Lambdatest e-commerce playground](https://ecommerce-playground.lambdatest.io/).
 
 Please refer to the [video tutorial playlist](https://youtube.com/playlist?list=PLZMWkkQEwOPkg0nLg2Jd3xQ2yX86zK0js&si=Aciy2lDaXtI1AJax) on the Lambdatest YouTube channel for more details.
 
