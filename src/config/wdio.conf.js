@@ -43,7 +43,7 @@ export const config = {
     specs:
     [
         // '../test/**/*.spec.js'
-        '../test/locators/*.spec.js'
+        '../test/assertions/*.spec.js'
     ],
     // Patterns to exclude.
     exclude: [
