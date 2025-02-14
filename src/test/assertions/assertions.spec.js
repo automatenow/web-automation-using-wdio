@@ -4,14 +4,14 @@ describe('Making assertions', () => {
         await browser.url('https://www.lambdatest.com/selenium-playground/');
     })
 
-    it('check URL', async () => {
+    it('checks page URL', async () => {
         await expect(browser).toHaveUrl('https://www.lambdatest.com/selenium-playground/');
 
         // Or
         await expect(browser).toHaveUrl(expect.stringContaining('lambdatest'));
     });
 
-    it('check page titlee', async () => {
+    it('checks page title', async () => {
         await expect(browser).toHaveTitle(expect.stringContaining('Selenium'));
     });
 
@@ -25,7 +25,7 @@ describe('Making assertions', () => {
         await expect(heading).toBeDisplayed();
     });
 
-    it('checks that input element is enabled', async () => {
+    it('checks that an input element is enabled', async () => {
         const simpleFormLink = await $('a=Simple Form Demo');
         await simpleFormLink.click();
 
@@ -41,7 +41,7 @@ describe('Making assertions', () => {
         await expect(optionThree).toBeDisabled();
     });
 
-    it('checks that input element has a given value', async () => {
+    it('checks that an input element has a given value', async () => {
         const simpleFormLink = await $('a=Simple Form Demo');
         await simpleFormLink.click();
 
@@ -51,12 +51,12 @@ describe('Making assertions', () => {
         await expect(input).toHaveValue('I love testing!');
     });
 
-    it('checks that input element has a given text', async () => {
+    it('checks that an input element has a given text', async () => {
         const heading = await $('h1');
         await expect(heading).toHaveText('Selenium Playground');
     });
 
-    it('checks that input element has a given attribute', async () => {
+    it('checks that an input element has a given attribute', async () => {
         const link = await $('a=Checkbox Demo');
         await expect(link).toHaveAttribute('href');
 
@@ -69,7 +69,7 @@ describe('Making assertions', () => {
         await expect(heading).toHaveElementClass('font-bold');
     });
 
-    it('checks that an element has child elements', async () => {
+    it('checks that a list has line items', async () => {
         const list = await $('.list-disc');
         await expect(list).toHaveChildren();
     });
