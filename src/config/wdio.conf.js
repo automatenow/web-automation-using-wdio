@@ -1,21 +1,21 @@
-import { config  as dotenvConf} from 'dotenv';
+import { config as dotenvConf } from 'dotenv';
 dotenvConf();  // Read .env file
 
 // Used to save screenshots 
-import { join } from 'path'; 
-import { promises as fs } from 'fs'; 
+import { join } from 'path';
+import { promises as fs } from 'fs';
 
 // Used for Report Portal reporter
 import { Reporter } from '@reportportal/agent-js-webdriverio';
 
 // Report Portal reporter config
 const report_portal_conf = {
-        apiKey: process.env.REPORTPORTAL_API_KEY,
-        endpoint: 'http://localhost:8090/api/v1',  // Check the port # (default is 8080)!
-        project: 'superadmin_personal',
-        launch: 'My Launch',
-        description: 'Running some tests',
-        attachPicturesToLogs: true
+    apiKey: process.env.REPORTPORTAL_API_KEY,
+    endpoint: 'http://localhost:8090/api/v1',  // Check the port # (default is 8080)!
+    project: 'superadmin_personal',
+    launch: 'My Launch',
+    description: 'Running some tests',
+    attachPicturesToLogs: true
 };
 
 export const config = {
@@ -41,9 +41,10 @@ export const config = {
     // of the config file unless it's absolute.
     //
     specs:
-    [
-        '../test/**/*.spec.js'
-    ],
+        [
+            // '../test/**/*.spec.js'
+            '../test/assertions/*.spec.js'
+        ],
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
@@ -70,18 +71,64 @@ export const config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
-    capabilities: [{
-        browserName: "chrome",
-        browserVersion: "latest",
-	    "LT:Options": {
-		    username: process.env.LT_USERNAME,
-		    accessKey: process.env.LT_ACCESS_KEY,
-            platformName: "Windows 10",
-		    project: "wdio2",
-		    w3c: true,
-		    plugin: "node_js-webdriverio"
+    capabilities: [
+        {
+            browserName: "Chrome",
+            browserVersion: "latest",
+            "LT:Options": {
+                username: process.env.LT_USERNAME,
+                accessKey: process.env.LT_ACCESS_KEY,
+                platformName: "Windows 11",
+                build: 'WDIO Cross-Platform Test',
+                project: "WDIO",
+                name: 'Chrome on Windows 11',
+                w3c: true,
+                plugin: "node_js-webdriverio"
+            }
+        },
+        {
+            browserName: "Firefox",
+            browserVersion: "latest",
+            "LT:Options": {
+                username: process.env.LT_USERNAME,
+                accessKey: process.env.LT_ACCESS_KEY,
+                platformName: "Windows 11",
+                build: 'WDIO Cross-Platform Test',
+                project: "WDIO",
+                name: 'Firefox on Windows 11',
+                w3c: true,
+                plugin: "node_js-webdriverio"
+            }
+        },
+        {
+            browserName: "MicrosoftEdge",
+            browserVersion: "latest",
+            "LT:Options": {
+                username: process.env.LT_USERNAME,
+                accessKey: process.env.LT_ACCESS_KEY,
+                platformName: "Windows 10",
+                build: 'WDIO Cross-Platform Test',
+                project: "WDIO",
+                name: 'Edge on Windows 10', 
+                w3c: true,
+                plugin: "node_js-webdriverio"
+            }
+        },
+        {
+            browserName: "Safari",
+            browserVersion: "latest",
+            "LT:Options": {
+                username: process.env.LT_USERNAME,
+                accessKey: process.env.LT_ACCESS_KEY,
+                platformName: "macOS Sequoia",
+                build: 'WDIO Cross-Platform Test',
+                project: "WDIO",
+                name: 'Safari on macOS Sequoia',
+                w3c: true,
+                plugin: "node_js-webdriverio"
+            }
         }
-    }],
+    ],
 
     path: "/wd/hub",
     hostname: "hub.lambdatest.com",
@@ -143,7 +190,7 @@ export const config = {
     // Make sure you have the wdio adapter package for the specific framework installed
     // before running any tests.
     framework: 'mocha',
-    
+
     //
     // The number of times to retry the entire specfile when it fails as a whole
     // specFileRetries: 1,
@@ -160,13 +207,13 @@ export const config = {
     reporters: [
         // Dot Rerpoter -> npm install @wdio/dot-reporter --save-dev
         // 'dot',
-        
+
         // Spec Reporter -> npm install @wdio/spec-reporter --save-dev
         // 'spec',
 
         // Concise Reporter -> npm install @wdio/concise-reporter --save-dev
         // 'concise',
-        
+
         // TestRail Reporter -> npm i --save-dev @wdio/testrail-reporter
         // ['testrail', { 
         //     projectId: 4, 
@@ -302,9 +349,9 @@ export const config = {
      * @param {boolean} result.passed    true if test has passed, otherwise false
      * @param {object}  result.retries   information about spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
-    afterTest: async function(test, context, { error, result, duration, passed, retries }) {
+    afterTest: async function (test, context, { error, result, duration, passed, retries }) {
         // Takes a screenshot when a test fails
-        if(!passed) {
+        if (!passed) {
             try {
                 const screenshotName = `${test.title.replace(/\s+/g, '_')}.png`; // Replaces whitespaces with '_' in test name
                 const screenshotDir = join(process.cwd(), 'screenshots');
@@ -314,10 +361,10 @@ export const config = {
 
                 // Construct the full path for the screenshot
                 const screenshotPath = join(screenshotDir, screenshotName);
-                
+
                 // Save the screenshot
                 await browser.saveScreenshot(screenshotPath);
-                
+
                 console.log(`Screenshot saved for the failed test: ${screenshotName}`);
             } catch (err) {
                 console.error('Failed to save screenshot:', err);
